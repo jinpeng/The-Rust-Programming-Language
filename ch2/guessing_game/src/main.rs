@@ -13,10 +13,13 @@ fn main() {
             .read_line(&mut guess_str)
             .expect("Failed to read line");
         println!("Your guessed: {}", &guess_str);
-        let guess :u32 = guess_str
-            .trim()
-            .parse()
-            .expect("Please type an integral number!");
+        let guess: u32 = match guess_str.trim().parse() {
+            Ok(num) => num,
+            Err(_) => {
+                println!("Please type an integral number.");
+                continue;
+            }
+        };
         match guess.cmp(&secret_number) {
             Ordering::Less => println!("Too small!"),
             Ordering::Greater => println!("Too big!"),
