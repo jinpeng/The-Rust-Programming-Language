@@ -1,30 +1,25 @@
-mod front_of_house {
-    pub mod hosting {
-        pub fn add_to_waitlist() {
-            println!("Add to waitlist.");
-        }
-
-        fn seat_at_table() {
-            println!("Seat at table.");
-        }
-    }
-
-    mod serving {
-        fn take_order() {
-            println!("Take order.");
-        }
-
-        fn serve_order() {
-            println!("Serve order.");
-        }
-
-        fn take_payment() {
-            println!("Take payment.");
-        }
-    }
-}
+mod front_of_house;
 
 mod back_of_house {
+    pub struct Breakfast {
+        pub toast: String,
+        seasonal_fruit: String,
+    }
+
+    impl Breakfast {
+        pub fn summer(toast: &str) -> Breakfast {
+            Breakfast {
+                toast: String::from(toast),
+                seasonal_fruit: String::from("peaches"),
+            }
+        }
+    }
+
+    pub enum Appetizer {
+        Soup,
+        Salad,
+    }
+
     fn fix_incorrect_order() {
         println!("Fix incorrect order.");
     }
@@ -40,6 +35,16 @@ pub fn eat_at_restaurant() {
 
     // Relative path
     front_of_house::hosting::add_to_waitlist();
+
+    let mut meal = back_of_house::Breakfast::summer("Rye");
+    meal.toast = String::from("Wheat");
+    println!("I'd like {} toast please", meal.toast);
+
+    let order1 = back_of_house::Appetizer::Soup;
+    match order1 {
+        back_of_house::Appetizer::Soup => println!("I order Soup for appetizer."),
+        back_of_house::Appetizer::Salad => println!("I order Salad for appetizer."),
+    }
 }
 
 #[cfg(test)]
