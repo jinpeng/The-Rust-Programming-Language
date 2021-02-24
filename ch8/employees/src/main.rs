@@ -1,10 +1,13 @@
-use std::io;
+use std::io::{self, Write};
 use std::collections::HashMap;
 
 fn main() {
     let mut employees: HashMap<String, Vec<String>> = HashMap::new();
 
     loop {
+        print!(">>>");
+        io::stdout().flush().unwrap();
+
         let mut input = String::new();
         if let Err(_)  = io::stdin().read_line(&mut input) {
             println!("Failed to read line from standard input.");
